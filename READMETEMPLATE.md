@@ -3,7 +3,7 @@
 The [LinuxServer.io](https://www.linuxserver.io/) team brings you another quality container release featuring auto-update on startup, easy user mapping and community support. Be sure to checkout our [forums](https://forum.linuxserver.io/index.php) or for real-time support our [IRC](https://www.linuxserver.io/index.php/irc/) on freenode at `#linuxserver.io`.
 
 # linuxserver/owncloud
-OwnCloud provides universal access to your files via the web, your computer or your mobile devices — wherever you are. Mariadb 10 and redis server are built into the image.[Owncloud.](https://owncloud.org/)
+OwnCloud provides universal access to your files via the web, your computer or your mobile devices — wherever you are. Mariadb 10 and redis server are built into the image. Built with php7, mariadb 10.1 and nginx 1.9.10. [Owncloud.](https://owncloud.org/)
 
 
 ## Usage
