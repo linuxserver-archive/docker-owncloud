@@ -39,7 +39,7 @@ Part of what makes our containers work so well is by allowing you to specify you
 * IMPORTANT, because the database is built into the container, the database host is localhost and the database user and the database itself are both owncloud.
 *  If you do not set the DB_PASS variable, the database password will default to owncloud.
 * After initial setup has completed, you need to restart the container with, docker restart owncloud , this sets the redis configuration for you.
-* IMPORTANT, if you you use your own keys name them cert.key and cert.crt, and place them in config/keys folder.
+* IMPORTANT, if you use your own keys name them cert.key and cert.crt, and place them in config/keys folder.
 
 ## Updates
 
