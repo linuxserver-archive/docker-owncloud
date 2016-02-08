@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ -f /config/keys/cert.key || -f /config/keys/cert.crt ]] && (echo "using keys found in /config/keys" && exit 0)
+[[ -f /config/keys/cert.key &&  -f /config/keys/cert.crt ]] && (echo "using keys found in /config/keys" && exit 0)
 
 SUBJECT="//C=US/ST=CA/L=Carlsbad/O=Linuxserver.io/OU=LSIO Server/CN=*"
 echo "generating self-signed keys in /config/keys, you can replace these with your own keys if required"
