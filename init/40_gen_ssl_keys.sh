@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -e
 [[ -f /config/keys/cert.key && -f /config/keys/cert.crt ]] && (echo "using keys found in /config/keys" && chown abc:abc -R /config/keys && exit 0)
 
 echo "generating self-signed keys in /config/keys, you can replace these with your own keys if required"
