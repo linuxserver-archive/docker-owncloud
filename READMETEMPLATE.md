@@ -3,7 +3,7 @@
 The [LinuxServer.io](https://www.linuxserver.io/) team brings you another quality container release featuring auto-update on startup, easy user mapping and community support. Be sure to checkout our [forums](https://forum.linuxserver.io/index.php) or for real-time support our [IRC](https://www.linuxserver.io/index.php/irc/) on freenode at `#linuxserver.io`.
 
 # linuxserver/owncloud
-OwnCloud provides universal access to your files via the web, your computer or your mobile devices — wherever you are. Mariadb 10 and redis server are built into the image. Built with php7, mariadb 10.1 and nginx 1.9.10. [Owncloud.](https://owncloud.org/)
+OwnCloud provides universal access to your files via the web, your computer or your mobile devices — wherever you are. Mariadb 10.1 is built into the image. Built with php7, mariadb 10.1 and nginx 1.9.10. [Owncloud.](https://owncloud.org/)
 
 
 ## Usage
@@ -38,7 +38,7 @@ Part of what makes our containers work so well is by allowing you to specify you
 * IMPORTANT, change the data folder to /data.
 * IMPORTANT, because the database is built into the container, the database host is localhost and the database user and the database itself are both owncloud.
 *  If you do not set the DB_PASS variable, the database password will default to owncloud.
-* After initial setup has completed, you need to restart the container with, docker restart owncloud , this sets the redis configuration for you.
+* After initial setup has completed, you need to restart the container with, docker restart owncloud , this sets the memcache configuration for you.
 * IMPORTANT, if you use your own keys name them cert.key and cert.crt, and place them in config/keys folder.
 
 ## Updates
