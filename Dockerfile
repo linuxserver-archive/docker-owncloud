@@ -10,9 +10,9 @@ ENV BUILD_APTLIST="php7.0-dev"
 ENV APTLIST="exim4 exim4-base exim4-config exim4-daemon-light git-core heirloom-mailx jq libaio1 libapr1 \
 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libdbd-mysql-perl libdbi-perl libfreetype6 \
 libmysqlclient18 libpcre3-dev libsmbclient.dev mariadb-server mysql-common mysqltuner nano nginx \
-openssl php7.0-bz2 php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
-php7.0-ldap php7.0-mcrypt php7.0-mysql php7.0-opcache php-imagick php-xml-parser smbclient \
-ssl-cert wget"
+openssl php-apcu php7.0-bz2 php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
+php7.0-ldap php7.0-mcrypt php7.0-mysql php7.0-opcache php-imagick php-xml-parser pkg-config smbclient \
+re2c ssl-cert wget"
 
 # add repositories
 RUN \
@@ -43,6 +43,11 @@ phpize && \
 make && \
 make install && \
 echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
+
+# install apcu 
+pecl channel-update pecl.php.net && \
+pecl install apcu && \
+echo "extension=apcu.so" > /etc/php/mods-available/apcu.ini && \
 
 # cleanup 
 cd / && \
