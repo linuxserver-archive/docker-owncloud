@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p config/{nginx/site-confs,www,log/mysql,log/nginx,keys,redis_data} /var/run/php
+mkdir -p config/{nginx/site-confs,www,log/mysql,log/nginx,keys} /var/run/php
 
 [[ ! -f /config/nginx/nginx.conf ]] && cp /defaults/nginx.conf /config/nginx/nginx.conf
 
