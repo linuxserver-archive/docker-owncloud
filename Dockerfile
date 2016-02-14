@@ -11,7 +11,7 @@ ENV APTLIST="exim4 exim4-base exim4-config exim4-daemon-light git-core heirloom-
 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libdbd-mysql-perl libdbi-perl libfreetype6 \
 libmysqlclient18 libpcre3-dev libsmbclient.dev mariadb-server mysql-common mysqltuner nano nginx \
 openssl php7.0-bz2 php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
-php7.0-ldap php7.0-mcrypt php7.0-mysql php7.0-opcache php-imagick php-xml-parser re2c redis-server smbclient \
+php7.0-ldap php7.0-mcrypt php7.0-mysql php7.0-opcache php-imagick php-xml-parser smbclient \
 ssl-cert wget"
 
 # add repositories
@@ -27,8 +27,6 @@ apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 00A6F0A3C300EE
 echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main" >> /etc/apt/sources.list.d/php7.list && \
 echo "deb-src http://ppa.launchpad.net/ondrej/php/ubuntu trusty main" >> /etc/apt/sources.list.d/php7.list && \
 apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 4F4EA0AAE5267A6C && \
- # redis
-add-apt-repository ppa:chris-lea/redis-server && \ 
  # python
 add-apt-repository ppa:fkrull/deadsnakes-python2.7 
 
@@ -46,18 +44,6 @@ make && \
 make install && \
 echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
 
-# build redis support
-git clone https://github.com/phpredis/phpredis.git /tmp/redis && \
-cd /tmp/redis && \ 
-git checkout php7 && \ 
-phpize && \ 
-./configure && \
-make && \
-make install && \
-echo "extension=redis.so" > /etc/php/mods-available/redis.ini && \
-ln -sf /etc/php/mods-available/redis.ini /etc/php/7.0/fpm/conf.d/20-redis.ini && \
-ln -sf /etc/php/mods-available/redis.ini /etc/php/7.0/cli/conf.d/20-redis.ini && \
- 
 # cleanup 
 cd / && \
 apt-get purge --remove $BUILD_APTLIST -y && \
@@ -83,8 +69,6 @@ sed -i -e 's/\(user.*=\).*/\1 abc/g' /etc/mysql/my.cnf && \
 sed -i -e "s#\(datadir.*=\).*#\1 $DATADIR#g" /etc/mysql/my.cnf && \
 sed -i "s/user='mysql'/user='abc'/g" /usr/bin/mysqld_safe && \
 cp /etc/mysql/my.cnf /defaults/my.cnf
-
-
 
 # expose ports
 EXPOSE 443
