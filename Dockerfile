@@ -34,7 +34,6 @@ add-apt-repository ppa:fkrull/deadsnakes-python2.7
 RUN apt-get update -q && \
 apt-get install \
 $APTLIST $BUILD_APTLIST -qy && \
-pear install PEAR && \
 
 # build libsmbclient support
 #git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
