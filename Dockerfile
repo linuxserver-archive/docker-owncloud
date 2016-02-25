@@ -10,7 +10,7 @@ ENV BUILD_APTLIST="php7.0-dev"
 ENV APTLIST="exim4 exim4-base exim4-config exim4-daemon-light git-core heirloom-mailx jq libaio1 libapr1 \
 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libdbd-mysql-perl libdbi-perl libfreetype6 \
 libmysqlclient18 libpcre3-dev libsmbclient.dev mariadb-server mysql-common mysqltuner nano nginx \
-openssl php7.0-bz2 php7.0-cli php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
+openssl php7.0-bz2 php7.0-cli php7.0-common php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
 php7.0-ldap php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-opcache php7.0-xml php7.0-xmlrpc php7.0-zip php-imagick \
 pkg-config smbclient re2c ssl-cert wget"
 
