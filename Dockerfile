@@ -36,13 +36,13 @@ apt-get install \
 $APTLIST $BUILD_APTLIST -qy && \
 
 # build libsmbclient support
-#git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
-#cd /tmp/smbclient && \
-#phpize && \
-#./configure && \
-#make && \
-#make install && \
-#echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
+git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
+cd /tmp/smbclient && \
+phpize && \
+./configure && \
+make && \
+make install && \
+echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
 
 # install apcu 
 #pecl channel-update pecl.php.net && \
