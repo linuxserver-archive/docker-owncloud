@@ -34,6 +34,7 @@ add-apt-repository ppa:fkrull/deadsnakes-python2.7
 RUN apt-get update -q && \
 apt-get install \
 $APTLIST $BUILD_APTLIST -qy && \
+pear install PEAR && \
 
 # build libsmbclient support
 #git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
@@ -45,9 +46,9 @@ $APTLIST $BUILD_APTLIST -qy && \
 #echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
 
 # install apcu 
-pecl channel-update pecl.php.net && \
-pecl install apcu && \
-echo "extension=apcu.so" > /etc/php/mods-available/apcu.ini && \
+#pecl channel-update pecl.php.net && \
+#pecl install apcu && \
+#echo "extension=apcu.so" > /etc/php/mods-available/apcu.ini && \
 
 # cleanup 
 cd / && \
