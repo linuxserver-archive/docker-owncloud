@@ -63,22 +63,13 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/mysql && \
 mkdir -p /var/lib/mysql
 
 # add some files 
-ADD services/ /etc/service/
-ADD defaults/ /defaults/
-ADD init/ /etc/my_init.d/
+COPY services/ /etc/service/
+COPY  defaults/ /defaults/
+COPY init/ /etc/my_init.d/
 RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 
 # configure fpm for owncloud
 echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /defaults/nginx-fpm.conf && \
-
-# configure mariadb
-sed -i 's/key_buffer\b/key_buffer_size/g' /etc/mysql/my.cnf && \
-sed -ri 's/^(bind-address|skip-networking)/;\1/' /etc/mysql/my.cnf && \
-sed -i s#/var/log/mysql#/config/log/mysql#g /etc/mysql/my.cnf && \
-sed -i -e 's/\(user.*=\).*/\1 abc/g' /etc/mysql/my.cnf && \
-sed -i -e "s#\(datadir.*=\).*#\1 $DATADIR#g" /etc/mysql/my.cnf && \
-sed -i "s/user='mysql'/user='abc'/g" /usr/bin/mysqld_safe && \
-cp /etc/mysql/my.cnf /defaults/my.cnf
 
 # expose ports
 EXPOSE 443
