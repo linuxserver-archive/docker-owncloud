@@ -69,7 +69,7 @@ COPY init/ /etc/my_init.d/
 RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 
 # configure fpm for owncloud
-echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /defaults/nginx-fpm.conf && \
+echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /defaults/nginx-fpm.conf
 
 # expose ports
 EXPOSE 443
