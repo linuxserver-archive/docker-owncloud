@@ -43,7 +43,7 @@ phpize && \
 ./configure && \
 make && \
 make install && \
-# echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
+echo "extension=smbclient.so" > /etc/php/7.0/mods-available/smbclient.ini && \
 
 # install apcu 
 git clone https://github.com/krakjoe/apcu /tmp/apcu && \
@@ -52,9 +52,7 @@ phpize && \
 ./configure && \
 make && \
 make install && \
-#pecl channel-update pecl.php.net && \
-#pecl install apcu && \
-# echo "extension=apcu.so" > /etc/php/mods-available/apcu.ini && \
+echo "extension=apcu.so" > /etc/php/7.0/mods-available/apcu.ini && \
 
 # cleanup 
 cd / && \
