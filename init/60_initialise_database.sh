@@ -92,6 +92,6 @@ rm /tmp/mysql-first-time.sql
 fi
 
 crontab /defaults/owncloud
-
+chown -R abc:abc /config
 
 

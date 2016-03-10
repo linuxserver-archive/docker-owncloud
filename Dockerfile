@@ -6,13 +6,14 @@ MAINTAINER Sparklyballs <sparklyballs@linuxserver.io>
 ENV MYSQL_DIR="/config"
 ENV DATADIR=$MYSQL_DIR/database
 
-ENV BUILD_APTLIST="php7.0-dev"
-ENV INSTALL_LIST="exim4 exim4-base exim4-config exim4-daemon-light git-core heirloom-mailx jq libaio1 libapr1 \
+ENV BUILD_APTLIST="php7.0-dev" \
+APTLIST="exim4 exim4-base exim4-config exim4-daemon-light git-core heirloom-mailx jq libaio1 libapr1 \
 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap libdbd-mysql-perl libdbi-perl libfreetype6 \
-libmysqlclient18 libpcre3-dev libsmbclient.dev mariadb-server mysql-common mysqltuner nano nginx \
-openssl php-apcu php7.0-bz2 php7.0-cli php7.0-common php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl \
-php7.0-ldap php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-opcache php7.0-xml php7.0-xmlrpc php7.0-zip php-imagick \
-pkg-config smbclient re2c ssl-cert wget"
+libmysqlclient18 libpcre3-dev libsmbclient.dev nano nginx openssl php-apcu php7.0-bz2 php7.0-cli \
+php7.0-common php7.0-curl php7.0-fpm php7.0-gd php7.0-gmp php7.0-imap php7.0-intl php7.0-ldap \
+php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-opcache php7.0-xml php7.0-xmlrpc php7.0-zip \
+php-imagick pkg-config smbclient re2c ssl-cert wget" \
+DB_APTLIST="mariadb-server mysqltuner"
 
 # add repositories
 RUN \
@@ -33,7 +34,7 @@ add-apt-repository ppa:fkrull/deadsnakes-python2.7
 # install packages
 RUN apt-get update -q && \
 apt-get install \
-$INSTALL_LIST $BUILD_APTLIST -qy && \
+$DB_APTLIST $APTLIST $BUILD_APTLIST -qy && \
 
 # build libsmbclient support
 git clone git://github.com/eduardok/libsmbclient-php.git /tmp/smbclient && \
@@ -42,7 +43,7 @@ phpize && \
 ./configure && \
 make && \
 make install && \
-echo "extension=smbclient.so" > /etc/php/mods-available/smbclient.ini && \
+echo "extension=smbclient.so" > /etc/php/7.0/mods-available/smbclient.ini && \
 
 # install apcu 
 git clone https://github.com/krakjoe/apcu /tmp/apcu && \
@@ -51,9 +52,7 @@ phpize && \
 ./configure && \
 make && \
 make install && \
-#pecl channel-update pecl.php.net && \
-#pecl install apcu && \
-echo "extension=apcu.so" > /etc/php/mods-available/apcu.ini && \
+echo "extension=apcu.so" > /etc/php/7.0/mods-available/apcu.ini && \
 
 # cleanup 
 cd / && \
@@ -64,22 +63,13 @@ rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/lib/mysql && \
 mkdir -p /var/lib/mysql
 
 # add some files 
-ADD services/ /etc/service/
-ADD defaults/ /defaults/
-ADD init/ /etc/my_init.d/
+COPY services/ /etc/service/
+COPY  defaults/ /defaults/
+COPY init/ /etc/my_init.d/
 RUN chmod -v +x /etc/service/*/run /etc/my_init.d/*.sh && \
 
 # configure fpm for owncloud
-echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /defaults/nginx-fpm.conf && \
-
-# configure mariadb
-sed -i 's/key_buffer\b/key_buffer_size/g' /etc/mysql/my.cnf && \
-sed -ri 's/^(bind-address|skip-networking)/;\1/' /etc/mysql/my.cnf && \
-sed -i s#/var/log/mysql#/config/log/mysql#g /etc/mysql/my.cnf && \
-sed -i -e 's/\(user.*=\).*/\1 abc/g' /etc/mysql/my.cnf && \
-sed -i -e "s#\(datadir.*=\).*#\1 $DATADIR#g" /etc/mysql/my.cnf && \
-sed -i "s/user='mysql'/user='abc'/g" /usr/bin/mysqld_safe && \
-cp /etc/mysql/my.cnf /defaults/my.cnf
+echo "env[PATH] = /usr/local/bin:/usr/bin:/bin" >> /defaults/nginx-fpm.conf
 
 # expose ports
 EXPOSE 443
