@@ -2,6 +2,11 @@ FROM linuxserver/baseimage
 
 MAINTAINER Sparklyballs <sparklyballs@linuxserver.io>
 
+# set version label
+ARG BUILD_DATE
+ARG VERSION
+LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
+
 # set owncloud initial install version and mariadb folders
 ENV MYSQL_DIR="/config"
 ENV DATADIR=$MYSQL_DIR/database
